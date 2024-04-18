@@ -1,33 +1,8 @@
 using UnityEngine;
 
-public enum PlayerState
+public class Player1 : PlayerControl
 {
-    grounded,
-    jumped,
-}
-
-public class PlayerControl : MonoBehaviour
-{
-    public float speed = 500f;
-    public float jumpForce = 10f;
-    private Rigidbody2D rb;
-    public PlayerState state = PlayerState.grounded;
-    private BoxCollider2D legs;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        legs = GetComponentInChildren<BoxCollider2D>();
-    }
-
-    private void FixedUpdate()
-    {
-        CheckCollisions();
-        MovePlayer();
-        UpdateTexture();
-    }
-
-    private void MovePlayer()
+    protected override void MovePlayer()
     {
         var h = Input.GetAxis("Horizontal");
         var velocity = new Vector2(h * speed * Time.fixedDeltaTime, rb.velocity.y);
@@ -39,26 +14,29 @@ public class PlayerControl : MonoBehaviour
         rb.velocity = transform.TransformDirection(velocity);
     }
 
-    private void UpdateTexture()
+    protected override void UpdateTexture()
     {
     }
 
-    private void SetAnimationRun()
+    protected override void SetAnimationRun()
     {
     }
 
-    private void SetAnimationJump()
+    protected override void SetAnimationJump()
     {
     }
 
-    private void Flip()
+    protected override void Flip()
     {
     }
 
-    private void CheckCollisions()
+    protected override void CheckCollisions()
     {
-        var collier = Physics2D.OverlapCircle(legs.transform.position, 1f);
-        if (collier.gameObject.CompareTag("Ground"))
-            state = PlayerState.grounded;
+        var colliders = Physics2D.OverlapCircleAll(legs.transform.position, 1f);
+        foreach (var c in colliders)
+        {
+            if (c.gameObject.CompareTag("Ground"))
+                state = PlayerState.grounded;
+        }
     }
 }
