@@ -14,11 +14,15 @@ public class PlayerControl : MonoBehaviour
     public PlayerState state = PlayerState.grounded;
     protected Rigidbody2D rb;
     protected BoxCollider2D legs;
+    protected Animator animator;
+    protected Camera camera;
 
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         legs = GetComponentInChildren<BoxCollider2D>();
+        animator = GetComponent<Animator>();
+        camera = GetComponent<Camera>();
     }
 
     protected void FixedUpdate()
@@ -26,7 +30,6 @@ public class PlayerControl : MonoBehaviour
         CheckCollisions();
         MovePlayer();
         UpdateTexture();
-        Flip();
     }
 
     protected virtual void MovePlayer()
@@ -49,7 +52,7 @@ public class PlayerControl : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    protected virtual void Flip()
+    protected virtual void Flip(int direction)
     {
         throw new NotImplementedException();
     }
