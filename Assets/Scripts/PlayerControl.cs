@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player1 : PlayerControl
 {
+    public float isGroundRad = 0.5f;
     protected override void MovePlayer()
     {
         var direction = 0;
@@ -48,12 +49,14 @@ public class Player1 : PlayerControl
 
     protected override void CheckCollisions()
     {
-        var colliders = Physics2D.OverlapCircleAll(legs.transform.position, 1f);
+        var colliders = Physics2D.OverlapCircleAll(legs.position, isGroundRad);
         foreach (var c in colliders)
         {
-            if (!c.gameObject.CompareTag("Ground")) continue;
-            state = PlayerState.grounded;
-            animator.SetBool("isJumping", false);
+            if (c.gameObject.CompareTag("Ground")){
+                state = PlayerState.grounded;
+                animator.SetBool("isJumping", false);
+                break;
+            }
         }
     }
 }

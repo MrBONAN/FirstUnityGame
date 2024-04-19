@@ -13,14 +13,22 @@ public class PlayerControl : MonoBehaviour
     public float jumpForce = 10f;
     public PlayerState state = PlayerState.grounded;
     protected Rigidbody2D rb;
-    protected BoxCollider2D legs;
+    protected Transform legs;
     protected Animator animator;
     protected Camera camera;
 
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        legs = GetComponentInChildren<BoxCollider2D>();
+        foreach (var component in GetComponentsInChildren<Transform>())
+        {
+            if (component.name is "Legs")
+            {
+                legs = component;
+                break;
+            }
+        }
+        Debug.Log(legs?.name);
         animator = GetComponent<Animator>();
         camera = GetComponent<Camera>();
     }
