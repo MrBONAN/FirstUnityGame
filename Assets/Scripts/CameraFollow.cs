@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
     public Transform player;
     public float dx = 3f, dy = 2f;
     public float xOffset = 0f, yOffset = 0f;
-    public float cameraSpeed = 50f;
+    public float cameraSpeed = 10f;
 
     void FixedUpdate()
     {

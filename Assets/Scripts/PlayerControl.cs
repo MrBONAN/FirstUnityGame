@@ -50,16 +50,6 @@ public class PlayerControl : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    protected virtual void SetAnimationRun()
-    {
-        throw new NotImplementedException();
-    }
-
-    protected virtual void SetAnimationJump()
-    {
-        throw new NotImplementedException();
-    }
-
     protected virtual void Flip(int direction)
     {
         throw new NotImplementedException();

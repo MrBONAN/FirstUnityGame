@@ -3,43 +3,42 @@ using UnityEngine;
 public class Player1 : PlayerControl
 {
     public float isGroundRad = 0.2f;
+
     protected override void MovePlayer()
     {
         var direction = 0;
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
-            direction = -1;
+            direction = Input.GetKey(KeyCode.D) ? 1 : -1;
             Flip(direction);
+            SetAnimationRun(true);
         }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction = 1;
-            Flip(direction);
-        }
-
-        animator.SetBool("isRunning", direction != 0);
+        else
+            SetAnimationRun(false);
 
         var velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
         if (state == PlayerState.grounded && Input.GetButton("Jump"))
         {
             velocity.y = jumpForce;
             state = PlayerState.jumped;
-            animator.SetBool("isJumping", true);
+            SetAnimationJump(true);
         }
         rb.velocity = transform.TransformDirection(velocity);
     }
 
     protected override void UpdateTexture()
     {
+        
     }
 
-    protected override void SetAnimationRun()
+    private void SetAnimationRun(bool on)
     {
+        animator.SetBool("isRunning", on);
     }
 
-    protected override void SetAnimationJump()
+    private void SetAnimationJump(bool on)
     {
+        animator.SetBool("isJumping", on);
     }
 
     protected override void Flip(int direction)
@@ -54,7 +53,7 @@ public class Player1 : PlayerControl
         {
             if (c.gameObject.CompareTag("Ground")){
                 state = PlayerState.grounded;
-                animator.SetBool("isJumping", false);
+                SetAnimationJump(false);
                 break;
             }
         }

@@ -463,7 +463,7 @@ MonoBehaviour:
   dy: 2
   xOffset: 0
   yOffset: 0
-  cameraSpeed: 1
+  cameraSpeed: 10
 --- !u!1 &615886242
 GameObject:
   m_ObjectHideFlags: 0
