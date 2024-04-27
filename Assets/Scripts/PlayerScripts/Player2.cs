@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public partial class Player1 : PlayerControl
+public partial class Player2 : PlayerControl
 {
     public float isGroundRad = 0.2f;
 
     protected override void MovePlayer()
     {
         var direction = 0;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
-            direction = Input.GetKey(KeyCode.D) ? 1 : -1;
+            direction = Input.GetKey(KeyCode.RightArrow) ? 1 : -1;
             Flip(direction);
             SetAnimationRun(true);
         }
@@ -17,7 +17,7 @@ public partial class Player1 : PlayerControl
             SetAnimationRun(false);
 
         var velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
-        if (state == PlayerState.grounded && Input.GetKey(KeyCode.W))
+        if (state == PlayerState.grounded && Input.GetKey(KeyCode.UpArrow))
         {
             velocity.y = jumpForce;
             state = PlayerState.jumped;
