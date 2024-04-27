@@ -461,6 +461,9 @@ MonoBehaviour:
   player: {fileID: 490952949}
   dx: 3
   dy: 2
+  xOffset: 0
+  yOffset: 0
+  cameraSpeed: 1
 --- !u!1 &615886242
 GameObject:
   m_ObjectHideFlags: 0

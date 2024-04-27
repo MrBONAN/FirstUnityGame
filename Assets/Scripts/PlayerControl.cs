@@ -1,62 +1,72 @@
+using System;
 using UnityEngine;
 
-public class Player1 : PlayerControl
+public enum PlayerState
 {
-    public float isGroundRad = 0.5f;
-    protected override void MovePlayer()
+    grounded,
+    jumped,
+}
+
+public class PlayerControl : MonoBehaviour
+{
+    public float speed = 350f;
+    public float jumpForce = 10f;
+    public PlayerState state = PlayerState.grounded;
+    protected Rigidbody2D rb;
+    protected Transform legs;
+    protected Animator animator;
+    //protected Camera camera;
+
+    protected void Start()
     {
-        var direction = 0;
-        if (Input.GetKey(KeyCode.A))
+        rb = GetComponent<Rigidbody2D>();
+        foreach (var component in GetComponentsInChildren<Transform>())
         {
-            direction = -1;
-            Flip(direction);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction = 1;
-            Flip(direction);
-        }
-
-        animator.SetBool("isRunning", direction != 0);
-
-        var velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
-        if (state == PlayerState.grounded && Input.GetButton("Jump"))
-        {
-            velocity.y = jumpForce;
-            state = PlayerState.jumped;
-            animator.SetBool("isJumping", true);
-        }
-        rb.velocity = transform.TransformDirection(velocity);
-    }
-
-    protected override void UpdateTexture()
-    {
-    }
-
-    protected override void SetAnimationRun()
-    {
-    }
-
-    protected override void SetAnimationJump()
-    {
-    }
-
-    protected override void Flip(int direction)
-    {
-        transform.localScale = new Vector3(direction, 1, 1);
-    }
-
-    protected override void CheckCollisions()
-    {
-        var colliders = Physics2D.OverlapCircleAll(legs.position, isGroundRad);
-        foreach (var c in colliders)
-        {
-            if (c.gameObject.CompareTag("Ground")){
-                state = PlayerState.grounded;
-                animator.SetBool("isJumping", false);
+            if (component.name is "Legs")
+            {
+                legs = component;
                 break;
             }
         }
+        Debug.Log(legs?.name);
+        animator = GetComponent<Animator>();
+        //camera = GetComponent<Camera>();
+    }
+
+    protected void FixedUpdate()
+    {
+        CheckCollisions();
+        MovePlayer();
+        UpdateTexture();
+    }
+
+    protected virtual void MovePlayer()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected virtual void UpdateTexture()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected virtual void SetAnimationRun()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected virtual void SetAnimationJump()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected virtual void Flip(int direction)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected virtual void CheckCollisions()
+    {
+        throw new NotImplementedException();
     }
 }
