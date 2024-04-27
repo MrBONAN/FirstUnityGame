@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player1 : PlayerControl
+public partial class Player1 : PlayerControl
 {
     public float isGroundRad = 0.2f;
 
@@ -23,27 +23,8 @@ public class Player1 : PlayerControl
             state = PlayerState.jumped;
             SetAnimationJump(true);
         }
+
         rb.velocity = transform.TransformDirection(velocity);
-    }
-
-    protected override void UpdateTexture()
-    {
-        
-    }
-
-    private void SetAnimationRun(bool on)
-    {
-        animator.SetBool("isRunning", on);
-    }
-
-    private void SetAnimationJump(bool on)
-    {
-        animator.SetBool("isJumping", on);
-    }
-
-    protected override void Flip(int direction)
-    {
-        transform.localScale = new Vector3(direction, 1, 1);
     }
 
     protected override void CheckCollisions()
@@ -51,7 +32,8 @@ public class Player1 : PlayerControl
         var colliders = Physics2D.OverlapCircleAll(legs.position, isGroundRad);
         foreach (var c in colliders)
         {
-            if (c.gameObject.CompareTag("Ground")){
+            if (c.gameObject.CompareTag("Ground"))
+            {
                 state = PlayerState.grounded;
                 SetAnimationJump(false);
                 break;
