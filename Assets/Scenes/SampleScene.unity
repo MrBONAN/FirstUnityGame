@@ -233,17 +233,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25fa0be55040fa42813beadba1a3bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splitScreen: 1
   camera1: {fileID: 519420031}
   camera2: {fileID: 1893269284}
   player1: {fileID: 490952949}
   player2: {fileID: 1398381991}
   cameraSpeed: 15
   convergenceSpeed: 5
+  halfWidth: 0
+  halfHeight: 0
   orthographicSize: 5
   xMaxPlayersDistance: 4
   yMaxPlayersDistance: 4.5
   dWidth: 0
   dHeight: 0
+  xOffset: 0
+  yOffset: 0
 --- !u!1 &742245665
 GameObject:
   m_ObjectHideFlags: 0

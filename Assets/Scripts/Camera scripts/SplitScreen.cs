@@ -23,6 +23,7 @@ public class SplitScrin : MonoBehaviour
 
     // размеры "внутреннего окна" у камеры для игрока
     public float dWidth, dHeight;
+    public float xOffset = 0f, yOffset = 0f;
 
 
     public void Start()
@@ -37,12 +38,12 @@ public class SplitScrin : MonoBehaviour
     {
         camera1.rect = new Rect(0, 0, 0.5f, 1);
         camera2.rect = new Rect(0.5f, 0, 0.5f, 1);
-        
+
         halfHeight = orthographicSize / 2;
         halfWidth = orthographicSize * camera1.pixelWidth / camera1.pixelHeight;
         xMaxPlayersDistance = halfWidth * 2.5f;
         yMaxPlayersDistance = halfHeight * 2;
-        dWidth = halfWidth - 3;
+        dWidth = halfWidth / 3;
         dHeight = halfHeight - 1;
 
 
@@ -57,15 +58,16 @@ public class SplitScrin : MonoBehaviour
     private void InitializeMonoCameraSettings()
     {
         camera1.rect = new Rect(0, 0, 1, 1);
-        
+
         halfHeight = orthographicSize;
         halfWidth = orthographicSize * camera1.pixelWidth / camera1.pixelHeight;
         dWidth = halfWidth / 2;
         dHeight = halfHeight / 2;
-        
+        yOffset = -1;
+
         camera1.orthographicSize = orthographicSize;
         camera1.transform.position = player1.position + new Vector3(0, 0, zPos);
-        
+
         camera2.enabled = false;
     }
 
@@ -77,6 +79,7 @@ public class SplitScrin : MonoBehaviour
             camera1.transform.position += GetCameraMoveDirection(camera1, player1.position) * cameraSpeed;
             return;
         }
+
         var playersDistance = player1.position - player2.position;
         if (Math.Abs(playersDistance.x) < xMaxPlayersDistance &&
             Math.Abs(playersDistance.y) < yMaxPlayersDistance)
@@ -87,7 +90,8 @@ public class SplitScrin : MonoBehaviour
 
     private void MoveConnectedCameras()
     {
-        var playersCenter = (player1.position + player2.position) / 2;
+        var playersCenter = (GetShiftedPlayerPosition(player1.position) +
+                             GetShiftedPlayerPosition(player2.position)) / 2;
 
         var targetPos1 = new Vector3(playersCenter.x - halfWidth, playersCenter.y, zPos);
         var targetPos2 = new Vector3(playersCenter.x + halfWidth, playersCenter.y, zPos);
@@ -100,8 +104,8 @@ public class SplitScrin : MonoBehaviour
 
     private void MoveSplitedCameras()
     {
-        var target1 = player1.position;
-        var target2 = player2.position;
+        var target1 = GetShiftedPlayerPosition(player1.position);
+        var target2 = GetShiftedPlayerPosition(player2.position);
         if ((camera1.transform.position - target1).sqrMagnitude > (camera1.transform.position - target2).sqrMagnitude)
             (target1, target2) = (target2, target1);
 
@@ -111,9 +115,11 @@ public class SplitScrin : MonoBehaviour
 
     private Vector3 GetCameraMoveDirection(Camera camera, Vector3 target)
     {
-        var dxy = target - camera.transform.position;
+        var dxy = target + new Vector3(xOffset, yOffset) - camera.transform.position;
         var dx = Math.Max(Math.Abs(dxy.x) - dWidth, 0f) * Math.Sign(dxy.x) / 4 * Time.fixedDeltaTime;
         var dy = Math.Max(Math.Abs(dxy.y) - dHeight, 0f) * Math.Sign(dxy.y) / 4 * Time.fixedDeltaTime;
         return new Vector3(dx, dy);
     }
+
+    private Vector3 GetShiftedPlayerPosition(Vector3 position) => new Vector3(xOffset, yOffset) + position;
 }
