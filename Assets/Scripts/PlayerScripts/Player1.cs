@@ -1,3 +1,4 @@
+using Interaction_objects;
 using UnityEngine;
 
 public partial class Player1 : PlayerControl
@@ -40,4 +41,15 @@ public partial class Player1 : PlayerControl
             }
         }
     }
+
+    public override void BeginInteraction()
+    {
+        Debug.Log("IT IS WORK");
+    }
+
+    public override void StayInInteraction()
+    { }
+
+    public override void EndInteractions()
+    { }
 }

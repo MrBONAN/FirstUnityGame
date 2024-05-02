@@ -1,4 +1,5 @@
 using System;
+using Interaction_objects;
 using UnityEngine;
 
 public enum PlayerState
@@ -7,7 +8,7 @@ public enum PlayerState
     jumped,
 }
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : Callable
 {
     public float speed = 350f;
     public float jumpForce = 10f;
@@ -56,6 +57,21 @@ public class PlayerControl : MonoBehaviour
     }
 
     protected virtual void CheckCollisions()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void BeginInteraction()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void StayInInteraction()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void EndInteractions()
     {
         throw new NotImplementedException();
     }

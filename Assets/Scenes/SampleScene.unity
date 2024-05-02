@@ -522,6 +522,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnOn: 0
+  objectsToCall:
+  - {fileID: 2082639414}
 --- !u!1 &1069058775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1023,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2082639414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1961454798926888255, guid: 325110ba3336e5d4e8396a991d2858ed, type: 3}
+  m_PrefabInstance: {fileID: 2331960743393731514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea13dbb66af85aa48a6379a6ca949124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2082988750
 GameObject:
   m_ObjectHideFlags: 0
