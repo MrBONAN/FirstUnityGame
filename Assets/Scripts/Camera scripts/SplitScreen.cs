@@ -42,7 +42,7 @@ public class SplitScrin : MonoBehaviour
         halfHeight = orthographicSize / 2;
         halfWidth = orthographicSize * camera1.pixelWidth / camera1.pixelHeight;
         xMaxPlayersDistance = halfWidth * 2.5f;
-        yMaxPlayersDistance = halfHeight * 2;
+        yMaxPlayersDistance = halfHeight * 2.5f;
         dWidth = halfWidth / 3;
         dHeight = halfHeight - 1;
 
