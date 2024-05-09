@@ -25,6 +25,7 @@ public class Button : MonoBehaviour
         {
             turnOn += 1;
             onPressed.Invoke();
+            Debug.Log("Button pressed");
         }
     }
 
