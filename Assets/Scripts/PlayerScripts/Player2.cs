@@ -40,4 +40,12 @@ public partial class Player2 : PlayerControl
             }
         }
     }
+    
+    // ReSharper disable Unity.PerformanceAnalysis
+    protected override void CheckControl()
+    {
+        if (Input.GetKeyDown(KeyCode.RightShift))
+            foreach (var interactable in interactableObjects)
+                interactable.Interact();
+    }
 }

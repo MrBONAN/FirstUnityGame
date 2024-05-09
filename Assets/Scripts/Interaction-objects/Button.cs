@@ -1,12 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
-using Interaction_objects;
+using UnityEngine.Events;
 
 public class Button : MonoBehaviour
 {
     public int turnOn;
     private Animator animator;
-    public List<Callable> objectsToCall = new();
+    public UnityEvent onPressed;
+    public UnityEvent onStayPressed;
+    public UnityEvent onReleased;
 
     private void Start()
     {
@@ -23,18 +24,14 @@ public class Button : MonoBehaviour
         if (other.gameObject.tag is "Player")
         {
             turnOn += 1;
-            foreach (var callable in objectsToCall)
-                callable.BeginInteraction();
+            onPressed.Invoke();
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.tag is "Player")
-        {
-            // foreach (var callable in objectsToCall)
-            //     callable.StayInInteraction();
-        }
+            onStayPressed.Invoke();
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -42,8 +39,7 @@ public class Button : MonoBehaviour
         if (other.gameObject.tag is "Player")
         {
             turnOn -= 1;
-            // foreach (var callable in objectsToCall)
-            //     callable.EndInteractions();
+            onReleased.Invoke();
         }
     }
 }

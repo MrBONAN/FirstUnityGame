@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Interaction_objects;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public enum PlayerState
     jumped,
 }
 
-public class PlayerControl : Callable
+public class PlayerControl : MonoBehaviour
 {
     public float speed = 350f;
     public float jumpForce = 10f;
@@ -16,7 +17,7 @@ public class PlayerControl : Callable
     protected Rigidbody2D rb;
     protected Transform legs;
     protected Animator animator;
-    //protected Camera camera;
+    protected HashSet<IInteractable> interactableObjects = new();
 
     protected void Start()
     {
@@ -31,7 +32,6 @@ public class PlayerControl : Callable
         }
         Debug.Log(legs?.name);
         animator = GetComponent<Animator>();
-        //camera = GetComponent<Camera>();
     }
 
     protected void FixedUpdate()
@@ -39,6 +39,11 @@ public class PlayerControl : Callable
         CheckCollisions();
         MovePlayer();
         UpdateTexture();
+    }
+
+    protected void Update()
+    {
+        CheckControl();
     }
 
     protected virtual void MovePlayer()
@@ -60,19 +65,23 @@ public class PlayerControl : Callable
     {
         throw new NotImplementedException();
     }
-
-    public override void BeginInteraction()
+    
+    protected virtual void CheckControl()
     {
         throw new NotImplementedException();
     }
-
-    public override void StayInInteraction()
+    
+    protected void OnTriggerEnter2D(Collider2D other)
     {
-        throw new NotImplementedException();
+        var interactable = other.gameObject.GetComponent<IInteractable>();
+        if (interactable is null) return;
+        interactableObjects.Add(interactable);
     }
-
-    public override void EndInteractions()
+    
+    protected void OnTriggerExit2D(Collider2D other)
     {
-        throw new NotImplementedException();
+        var interactable = other.gameObject.GetComponent<IInteractable>();
+        if (interactable is null) return;
+        interactableObjects.Remove(interactable);
     }
 }

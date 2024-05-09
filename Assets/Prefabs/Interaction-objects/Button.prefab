@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5775442391959814349}
   - component: {fileID: 9093658997189121890}
   - component: {fileID: 1750134621427460294}
+  - component: {fileID: 1470548504479363999}
   m_Layer: 0
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,6 +130,29 @@ PolygonCollider2D:
       - {x: -1.9, y: 0}
       - {x: 1.9, y: 0}
   m_UseDelaunayMesh: 0
+--- !u!114 &1470548504479363999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36021680239239923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e167fea4363b54a8a542170ed66622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOn: 0
+  onPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onStayPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  objectsToCall: []
 --- !u!1 &345299702809662140
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using Interaction_objects;
 using UnityEngine;
 
 public partial class Player1 : PlayerControl
@@ -42,14 +41,11 @@ public partial class Player1 : PlayerControl
         }
     }
 
-    public override void BeginInteraction()
+    // ReSharper disable Unity.PerformanceAnalysis
+    protected override void CheckControl()
     {
-        Debug.Log("IT IS WORK");
+        if (Input.GetKeyDown(KeyCode.E))
+            foreach (var interactable in interactableObjects)
+                interactable.Interact();
     }
-
-    public override void StayInInteraction()
-    { }
-
-    public override void EndInteractions()
-    { }
 }
